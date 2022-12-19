@@ -13,10 +13,5 @@ namespace NotTryAnymore.Controllers
 			var lists = context.ShopLists.ToList();
 			return View(lists);
 		}
-
-		public IActionResult ListIndex()
-		{
-			return View();
-		}
 	}
 }
