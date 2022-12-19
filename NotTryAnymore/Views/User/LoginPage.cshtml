@@ -1,0 +1,19 @@
+﻿@model NotTryAnymore.ViewModels.LoginViewModel
+
+
+<div class="container">
+    <div width="30%" style="text-align:center"><h2>LOGIN</h2></div>
+      <form class="form-group" asp-action="Login" asp-controller="User" method="post">
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.Mail,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Email"})
+        </div>
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.Password,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Password"})
+        </div>
+          <nav style="text-align:center"><button class="btn btn-success" style="width:30%">Login</button></nav>
+        <nav style="text-align:center"><a class="nav-link text-secondary" asp-area="" asp-controller="User" asp-action="RegisterPage">If you haven't an account, Register!</a></nav>
+      </form>
+</div>
+

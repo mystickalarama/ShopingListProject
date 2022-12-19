@@ -1,0 +1,20 @@
+﻿@model NotTryAnymore.ViewModels.ProductViewModel
+
+
+<h3>Add Book</h3>
+<br />
+<form class="form-group" asp-action="AddProducts" asp-controller="Product" method="post" enctype="multipart/form-data">
+	<div style="margin-bottom:15px">
+		@Html.Label("Product Name")
+		@Html.TextBoxFor(a => a.ProductName, new { @class="form-control" })
+	</div>
+	<div style="margin-bottom:15px">
+		@Html.Label("Category")
+		@Html.DropDownListFor(a => a.CategoryId, (List<SelectListItem>)ViewBag.CategoryList, new { @class="form-control" })
+	</div>
+	<div style="margin-bottom:15px">
+		@Html.Label("Upload Image")
+		<input type="file" name="ImageURL" />
+	</div>
+	<button class="btn btn-danger">Add</button>
+</form>

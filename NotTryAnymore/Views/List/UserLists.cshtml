@@ -1,0 +1,19 @@
+﻿@model List<ShopListModel>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>List Name</th>
+			<th>Go to List</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+				<tr>
+					<td>@item.ShopListName</td>
+					<td><a href="/List/ListIndex/@item.ShopListId" class="btn btn-outline-success">Get!</a></td>
+				</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,30 @@
+﻿@model NotTryAnymore.ViewModels.RegisterViewModel
+
+
+<div class="container">
+	<div width="30%" style="text-align:center"><h2>New Account</h2></div>
+    <form class="form-group" asp-action="Register" asp-controller="User" method="post">
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.UserName,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Name"})
+        </div>
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.UserSurname, 
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Surname"})
+        </div>
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.Mail,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Email"})
+        </div>
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.Password,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="Password"})
+        </div>
+        <div style="margin-bottom:15px">
+            @Html.TextBoxFor(a => a.ConfirmPassword,
+                new { @class="form-control", @style="width:30%;text-align:center;margin-left:auto;margin-right:auto", @placeholder="ConfirmPassword"})
+        </div>
+        <nav style="text-align:center"><button class="btn btn-outline-warning" style="width:30%">Register</button></nav>
+        <nav style="text-align:center"><a class="nav-link text-secondary" asp-area="" asp-controller="User" asp-action="LoginPage">If you have an account, Login!</a></nav>
+    </form>
+</div>

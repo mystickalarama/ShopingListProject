@@ -1,0 +1,40 @@
+﻿@model List<ShopListDetailModel>
+
+@{
+	ShoppingListContext context = new();
+
+	var userLists = from a in context.ShopLists
+							join b in context.ShopListDeails on a.ShopListId equals b.ShopListId
+							join c in context.Users on a.UserId equals c.UserId
+							join d in context.Products on b.ProductId equals d.ProductId
+							select new
+							{
+								ListName = a.ShopListName,
+								ListID = a.ShopListId,
+								ProductName = d.ProductName,
+								Quantity = b.Quantity,
+								Price = b.Price,
+								Description = b.Description,
+								Brand = b.Brand,
+							};
+}
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>List Name</th>
+			<th>Go to List</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>Böyle</td>
+				<td>@item.Product</td>
+				<td>@item.Quantity</td>
+				<td><a href="/List/ListIndex/@item.ShopListDetails" class="btn btn-outline-success">Detail</a></td>
+			</tr>
+		}
+	</tbody>
+</table>

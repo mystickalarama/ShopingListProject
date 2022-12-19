@@ -1,0 +1,37 @@
+﻿@{
+	ShoppingListContext context = new();
+
+	var products = from a in context.Products
+							join b in context.Categories on a.CategoryId equals b.CategoryId
+							select new
+							{
+								ProductName = a.ProductName,
+								CategoryName = b.CategoryName,
+								ProductImage = a.ProductImage,
+								ProductId = a.ProductId
+							};
+}
+<table class="table table-striped">
+	<thead>
+		<button type="submit" class="btn btn-danger"><a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="AddProduct">Add product</a></button>
+		<tr>
+			<th>Product Name</th>
+			<th>Category</th>
+			<th>Image</th>
+			<th>Delete</th>
+			<th>Update</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in products)
+		{
+			<tr>
+				<td>@item.ProductName</td>
+				<td>@item.CategoryName</td>
+				<td><img src="~/Images/@item.ProductImage" style="border-radius:15px" width="50" height="50" /></td>
+				<td><a href="/Product/DeleteProduct/@item.ProductId" class="btn btn-outline-danger">Delete</a></td>
+				<td><a href="/Product/UpdateProduct/@item.ProductId" class="btn btn-outline-warning">Update</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
