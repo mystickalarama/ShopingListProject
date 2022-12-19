@@ -14,6 +14,7 @@ namespace NotTryAnymore.Controllers
 	{
 		ShoppingListContext context = new ShoppingListContext();
 		private readonly IConfiguration configuration;
+		readonly UserModel user = new();
 
 		public UserController(IConfiguration configuration)
 		{
@@ -55,9 +56,57 @@ namespace NotTryAnymore.Controllers
 			userModel.VerificationToken = CreateToken(userModel);
 
 			context.Users.Add(userModel);
-			context.SaveChangesAsync();
+			await context.SaveChangesAsync();
 
-			return RedirectToAction("Login");
+			return RedirectToAction("LoginPage");
+		}
+
+		[HttpPost]
+		public async Task<ActionResult<string>> RefreshToken()
+		{
+			var refreshToken = Request.Cookies["refreshToken"];
+
+			if (!user.RefreshToken.Equals(refreshToken))
+			{
+				return Unauthorized("Invalid Refresh Token");
+			}
+			else if (user.TokenExpires < DateTime.Now)
+			{
+				return Unauthorized("Token Expired");
+			}
+
+			string token = CreateToken(user);
+			var newRefreshToken = GenerateRefreshToken();
+			SetRefreshToken(newRefreshToken);
+
+			return Ok(token);
+		}
+
+		private static RefreshTokenViewModel GenerateRefreshToken()
+		{
+			var refreshToken = new RefreshTokenViewModel()
+			{
+				Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+				Expires = DateTime.Now.AddDays(7),
+				Created = DateTime.Now
+
+			};
+
+			return refreshToken;
+		}
+
+		private void SetRefreshToken(RefreshTokenViewModel newRefreshToken)
+		{
+			var cookieOptions = new CookieOptions
+			{
+				HttpOnly = true,
+				Expires = newRefreshToken.Expires
+			};
+			Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+			user.RefreshToken = newRefreshToken.Token;
+			user.TokenCreated = newRefreshToken.Created;
+			user.TokenExpires = newRefreshToken.Expires;
 		}
 
 		[HttpPost]

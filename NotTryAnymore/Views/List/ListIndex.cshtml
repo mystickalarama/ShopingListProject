@@ -22,17 +22,22 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>List Name</th>
-			<th>Go to List</th>
+			<th>Product Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Brand</th>
+			<th>Description</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model)
+		@foreach (var item in userLists)
 		{
 			<tr>
-				<td>Böyle</td>
-				<td>@item.Product</td>
+				<td>@item.ProductName</td>
 				<td>@item.Quantity</td>
+				<td>@item.Price</td>
+				<td>@item.Brand</td>
+				<td>@item.Description</td>
 			</tr>
 		}
 	</tbody>
